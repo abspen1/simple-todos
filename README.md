@@ -9,9 +9,9 @@ Necessary dependencies for this implementation
 ### Install Meteor
 
 # OSX/Linux
-'''bash
+```bash
 curl https://install.meteor.com/ | sh
-'''
+```
 
 ### npm packages
 
