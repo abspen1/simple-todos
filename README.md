@@ -8,8 +8,6 @@ Necessary dependencies for this implementation
 
 ### Install Meteor
 
-'''bash
-
 # OSX/Linux
 '''bash
 curl https://install.meteor.com/ | sh
