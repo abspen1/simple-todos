@@ -11,7 +11,7 @@ Necessary dependencies for this implementation
 '''bash
 
 # OSX/Linux
-
+'''bash
 curl https://install.meteor.com/ | sh
 '''
 
