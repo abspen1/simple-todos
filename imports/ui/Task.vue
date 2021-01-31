@@ -9,6 +9,12 @@
       @click="toggleChecked"
     />
 
+    <template v-if="this.showPrivateButton">
+      <button className="toggle-private" @click="togglePrivate">
+        {{ this.task.private ? 'Private' : 'Public' }}
+      </button>
+    </template>
+
     <span class="text">
       <strong>{{ this.task.username }}</strong
       >: {{ this.task.text }}
@@ -20,7 +26,7 @@
 import { Tasks } from '../api/tasks.js'
 
 export default {
-  props: ['task'],
+  props: ['task', 'showPrivateButton'],
   data() {
     return {}
   },
@@ -36,6 +42,9 @@ export default {
     },
     deleteThisTask() {
       Meteor.call('tasks.remove', this.task._id)
+    },
+    togglePrivate() {
+      Meteor.call('tasks.setPrivate', this.task._id, !this.task.private)
     },
   },
 }
