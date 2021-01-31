@@ -13,13 +13,15 @@
         Hide Completed Tasks
       </label>
       <blaze-template template="loginButtons" tag="span"></blaze-template>
-      <form className="new-task" @submit.prevent="handleSubmit">
-        <input
-          type="text"
-          placeholder="Type to add new tasks"
-          v-model="newTask"
-        />
-      </form>
+      <template v-if="currentUser">
+        <form className="new-task" @submit.prevent="handleSubmit">
+          <input
+            type="text"
+            placeholder="Type to add new tasks"
+            v-model="newTask"
+          />
+        </form>
+      </template>
     </header>
     <ul>
       <Task v-for="task in tasks" v-bind:key="task._id" v-bind:task="task" />
@@ -28,6 +30,7 @@
 </template>
 
 <script>
+import { Meteor } from 'meteor/meteor'
 import Vue from 'vue'
 import Task from './Task.vue'
 import { Tasks } from '../api/tasks.js'
@@ -47,6 +50,8 @@ export default {
       Tasks.insert({
         text: this.newTask,
         createdAt: new Date(), // current time
+        owner: Meteor.userId(), // _id of logged in user
+        username: Meteor.user().username, // username of logged in user
       })
 
       // Clear form
@@ -66,6 +71,9 @@ export default {
     },
     incompleteCount() {
       return Tasks.find({ checked: { $ne: true } }).count()
+    },
+    currentUser() {
+      return Meteor.user()
     },
   },
 }
