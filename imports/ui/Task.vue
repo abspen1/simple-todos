@@ -24,6 +24,7 @@
 
 <script>
 import { Tasks } from '../api/tasks.js'
+import classnames from 'classnames'
 
 export default {
   props: ['task', 'showPrivateButton'],
@@ -32,7 +33,10 @@ export default {
   },
   computed: {
     taskClassName: function () {
-      return this.task.checked ? 'checked' : ''
+      return classnames({
+        checked: this.task.checked,
+        private: this.task.private,
+      })
     },
   },
   methods: {
